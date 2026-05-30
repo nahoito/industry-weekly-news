@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>XAION DATA — Weekly Industry Digest</title>
+<style>
+  :root { color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f4f6fb;
+    color: #1a1d2e;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #0f1729 0%, #1a2d5a 60%, #1e3a8a 100%);
+    padding: 28px 32px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+  }
+  .logo-block { display: flex; align-items: center; gap: 14px; }
+  .logo-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900; color: #fff; letter-spacing: -1px;
+  }
+  .logo-text .brand { font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #fff; }
+  .logo-text .tagline { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+  .header-meta { text-align: right; }
+  .header-meta .week-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; margin-bottom: 4px; }
+  .header-meta .week-date { font-size: 15px; font-weight: 600; color: #e2e8f0; }
+
+  .status-bar {
+    background: #fff; border-bottom: 1px solid #e2e8f0;
+    padding: 10px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .status-info { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #64748b; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+  .dot.loading { background: #f59e0b; animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  .main { padding: 28px 32px 40px; max-width: 1100px; margin: 0 auto; }
+
+  .takeaway {
+    background: linear-gradient(135deg, #1e40af10, #7c3aed10);
+    border: 1px solid #c7d2fe; border-radius: 10px;
+    padding: 16px 20px; margin-bottom: 28px;
+    font-size: 13px; color: #3730a3; line-height: 1.7;
+    min-height: 48px;
+  }
+  .takeaway strong { font-weight: 700; color: #1e1b4b; }
+  .takeaway.loading-text { color: #94a3b8; font-style: italic; }
+
+  .section { margin-bottom: 36px; }
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px; padding-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .section-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .icon-ai  { background: #ede9fe; }
+  .icon-mkt { background: #dcfce7; }
+  .icon-reg { background: #fef3c7; }
+  .icon-hr  { background: #fce7f3; }
+
+  .section-title { font-size: 16px; font-weight: 700; color: #0f1729; }
+  .section-count {
+    margin-left: auto; font-size: 12px; color: #64748b;
+    background: #f1f5f9; padding: 2px 8px; border-radius: 10px;
+  }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+
+  .card {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 10px;
+    padding: 16px 18px;
+    transition: box-shadow 0.15s, border-color 0.15s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-color: #cbd5e1; }
+
+  .card-tag {
+    display: inline-block; font-size: 10px; text-transform: uppercase;
+    letter-spacing: .6px; font-weight: 600; padding: 2px 7px; border-radius: 4px; margin-bottom: 8px;
+  }
+  .tag-ai  { background: #ede9fe; color: #6d28d9; }
+  .tag-mkt { background: #dcfce7; color: #15803d; }
+  .tag-reg { background: #fef3c7; color: #b45309; }
+  .tag-hr  { background: #fce7f3; color: #be185d; }
+
+  .card-title { font-size: 14px; font-weight: 600; color: #1a1d2e; line-height: 1.4; margin-bottom: 8px; }
+  .card-body  { font-size: 13px; color: #475569; line-height: 1.6; }
+  .card-footer {
+    margin-top: 12px; display: flex; align-items: center;
+    justify-content: space-between; gap: 8px;
+  }
+  .card-source { font-size: 11px; color: #94a3b8; }
+  .card-link { font-size: 11px; font-weight: 500; color: #2563eb; text-decoration: none; }
+  .card-link:hover { text-decoration: underline; }
+
+  .week-badge {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    padding: 2px 7px; border-radius: 10px; margin-left: 8px;
+    background: #dbeafe; color: #1d4ed8; vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-block">
+    <div class="logo-icon">XD</div>
+    <div class="logo-text">
+      <div class="brand">XAION DATA</div>
+      <div class="tagline">Weekly Industry Intelligence</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <div class="week-label">Week of</div>
+    <div class="week-date" id="weekDate"></div>
+  </div>
+</div>
+
+<div class="status-bar">
+  <div class="status-info">
+    <div class="dot loading" id="statusDot"></div>
+    <span id="statusText">Generating executive summary...</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="takeaway loading-text" id="takeawayBar">Generating executive summary...</div>
+
+  <!-- AI & LLM Trends -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-ai">🤖</div>
+      <span class="section-title">AI &amp; LLM Trends</span>
+      <span class="section-count" id="aiCount"></span>
+    </div>
+    <div class="cards" id="aiCards"></div>
+  </div>
+
+  <!-- Competitor & Market Moves -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-mkt">📈</div>
+      <span class="section-title">Competitor &amp; Market Moves</span>
+      <span class="section-count" id="mktCount"></span>
+    </div>
+    <div class="cards" id="mktCards"></div>
+  </div>
+
+  <!-- Regulations & Policy -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-reg">⚖️</div>
+      <span class="section-title">Regulations &amp; Policy</span>
+      <span class="section-count" id="regCount"></span>
+    </div>
+    <div class="cards" id="regCards"></div>
+  </div>
+
+  <!-- HR & AI -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon icon-hr">👥</div>
+      <span class="section-title">HR &amp; AI</span>
+      <span class="section-count" id="hrCount"></span>
+    </div>
+    <div class="cards" id="hrCards"></div>
+  </div>
+
+</div>
+
+<script>
+// ── News data (updated week of May 27, 2026) ──────────────────────────────────
+const NEWS = {
+  weekOf: "May 27, 2026",
+  ai_llm: [
+    {
+      title: "Gemini 3.5 Flash Now Generally Available at 4x Speed",
+      summary: "Google made Gemini 3.5 Flash generally available, offering frontier-level intelligence at four times the speed of comparable models. Priced at $1.50/$9 per million tokens with a 1M context window, it represents a major push on price-performance for enterprise deployments.",
+      source: "llm-stats.com",
+      url: "https://llm-stats.com/ai-news"
+    },
+    {
+      title: "Inception's Mercury 2 Hits 1,000+ Tokens Per Second via Diffusion",
+      summary: "Inception released Mercury 2, a reasoning language model built on a diffusion architecture that generates tokens in parallel rather than sequentially. The result is inference speeds exceeding 1,000 tokens per second, far above autoregressive alternatives.",
+      source: "AI Flash Report",
+      url: "https://aiflashreport.com/model-releases.html"
+    },
+    {
+      title: "Cloudflare Builds Global LLM Infrastructure with Split Processing",
+      summary: "Cloudflare announced new infrastructure optimised for running large language models across its global network, separating model input processing and output generation onto different purpose-built systems. The architecture is designed to reduce latency for real-time AI applications at scale.",
+      source: "InfoQ",
+      url: "https://www.infoq.com/news/2026/05/cloudflare-llm-infrastructure/"
+    },
+    {
+      title: "Together AI Releases OSCAR: INT2 Quantization for Long-Context Serving",
+      summary: "Together AI open-sourced OSCAR (Offline Spectral Covariance-Aware Rotation), an INT2 KV cache quantization method that dramatically reduces memory requirements for long-context LLM serving. The technique makes 100K+ token context windows practical on standard hardware.",
+      source: "Price Per Token",
+      url: "https://pricepertoken.com/news/model-releases"
+    }
+  ],
+  market: [
+    {
+      title: "Q1 2026 VC Funding Hits $300B Record — AI Accounts for 80%",
+      summary: "Q1 2026 shattered global venture funding records with $300 billion raised, of which AI startups captured $242 billion — 80% of all global venture activity. Four of the five largest VC rounds ever recorded were closed in Q1, signalling peak capital concentration in AI.",
+      source: "Crunchbase News",
+      url: "https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/"
+    },
+    {
+      title: "Databricks Reaches $134B Valuation with $5.4B ARR",
+      summary: "Databricks, the data intelligence platform powering enterprise AI and ML workloads, crossed $5.4 billion in ARR with over 20,000 customers, pushing its valuation to $134 billion. The milestone cements it as the dominant infrastructure layer for enterprise data and AI.",
+      source: "AI Funding Tracker",
+      url: "https://aifundingtracker.com/top-50-ai-startups/"
+    },
+    {
+      title: "Bluefish Raises $43M to Manage Brand Presence Across AI Platforms",
+      summary: "Bluefish raised a $43M Series B to help Fortune 500 brands manage and optimise how they appear across AI platforms including ChatGPT, Claude, and Perplexity. The round reflects growing enterprise demand for AI search reputation management as LLMs replace traditional search.",
+      source: "Crescendo AI",
+      url: "https://www.crescendo.ai/news/latest-vc-investment-deals-in-ai-startups"
+    },
+    {
+      title: "AI Infrastructure Stack Funded Component-by-Component",
+      summary: "Investors are backing the full AI infrastructure stack in granular fashion, with discrete funding rounds for optical switching, quantum acceleration, and specialised memory startups. The pattern suggests the industry is building out a purpose-built physical layer beneath the software AI boom.",
+      source: "Qubit Capital",
+      url: "https://qubit.capital/blog/ai-startup-fundraising-trends"
+    }
+  ],
+  regulations: [
+    {
+      title: "Senate Passes AI Safety Measures Act and Two Chatbot Bills",
+      summary: "The US Senate passed the AI Safety Measures Act alongside the Consumer AI Notice Act and AI Companion Model Safety Act. The bills introduce federal disclosure requirements and safety obligations for frontier AI models and consumer-facing chatbot products.",
+      source: "Troutman Privacy Blog",
+      url: "https://www.troutmanprivacy.com/2026/05/proposed-state-privacy-and-ai-law-update-may-25-2026/"
+    },
+    {
+      title: "Louisiana Becomes Third State to Pass Consumer Data Privacy Law in 2026",
+      summary: "Louisiana's legislature passed a comprehensive consumer data privacy bill, making it the third US state after Oklahoma and Alabama to enact such a law this year. The accelerating state-level action is creating a patchwork compliance challenge for companies operating nationally.",
+      source: "Lexology",
+      url: "https://www.lexology.com/library/detail.aspx?g=1171e4f3-998b-47a8-b852-0fdb1099ad53"
+    },
+    {
+      title: "New York Bill Mandates Independent Audits of High-Risk AI Systems",
+      summary: "New York's S 1169 requires independent audits of high-risk AI systems to prevent algorithmic discrimination, with enforcement by the attorney general and a private right of action. If signed, it will be among the most stringent AI accountability laws at the state level in the US.",
+      source: "Wilson Sonsini",
+      url: "https://www.wsgr.com/en/insights/2026-year-in-preview-ai-regulatory-developments-for-companies-to-watch-out-for.html"
+    }
+  ],
+  hr_ai: [
+    {
+      title: "92% of CHROs Expect Deeper AI Integration in Workforce This Year",
+      summary: "A new survey finds 92% of Chief Human Resources Officers anticipate further AI integration across their workforce in 2026, with 87% forecasting greater adoption within HR processes specifically. The data reflects a shift from AI as an experiment to AI as a core operational dependency.",
+      source: "HR Dive",
+      url: "https://www.hrdive.com/news/hr-2026-trends/808926/"
+    },
+    {
+      title: "Agentic AI Adoption in HR Projected to Grow 327% by 2027",
+      summary: "CHROs are projecting a 327% increase in AI agent adoption within HR by 2027, with current adoption already at 48% among large enterprises. More than half of talent leaders say they are actively planning to add autonomous AI agents as team members this year.",
+      source: "ADP Spark Blog",
+      url: "https://www.adp.com/spark/articles/2025/12/key-hr-technology-trends-for-2026-and-how-to-plan.aspx"
+    },
+    {
+      title: "Employers Hiring Aggressively — But Only for AI-Adjacent Roles",
+      summary: "Employers report aggressive hiring plans for 2026, but demand is concentrated in AI engineering, data, and automation roles. Traditional back-office and administrative positions face continued contraction as companies redeploy headcount toward AI-native functions.",
+      source: "HR Dive",
+      url: "https://www.hrdive.com/news/companies-hiring-and-firing-2026/809286/"
+    },
+    {
+      title: "AI Shifts Rather Than Eliminates HR Jobs, Study Finds",
+      summary: "New research finds AI's organisational impact is 5.7x more likely to shift job responsibilities and 3x more likely to create new roles than to eliminate positions outright. While 30-40% of HR tasks can be automated, the net effect is role transformation rather than displacement.",
+      source: "Eightfold AI",
+      url: "https://eightfold.ai/blog/predictions-hr-tech-2026/"
+    }
+  ]
+};
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function renderCard(item, tagClass, tagLabel) {
+  return `
+    <div class="card">
+      <div class="card-tag ${tagClass}">${tagLabel}</div>
+      <div class="card-title">${item.title}</div>
+      <div class="card-body">${item.summary}</div>
+      <div class="card-footer">
+        <span class="card-source">${item.source || ''}</span>
+        ${item.url ? `<a class="card-link" href="${item.url}" target="_blank">Read &rarr;</a>` : ''}
+      </div>
+    </div>`;
+}
+
+function renderSection(containerId, countId, items, tagClass, tagLabel) {
+  document.getElementById(containerId).innerHTML = items.map(i => renderCard(i, tagClass, tagLabel)).join('');
+  document.getElementById(countId).textContent = items.length + ' stories';
+}
+
+function setStatus(msg, loading) {
+  document.getElementById('statusText').textContent = msg;
+  document.getElementById('statusDot').className = 'dot' + (loading ? ' loading' : '');
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+document.getElementById('weekDate').textContent = 'Week of ' + NEWS.weekOf;
+
+// Render all sections immediately from pre-loaded data
+renderSection('aiCards',  'aiCount',  NEWS.ai_llm,      'tag-ai',  'AI & LLM');
+renderSection('mktCards', 'mktCount', NEWS.market,       'tag-mkt', 'Market');
+renderSection('regCards', 'regCount', NEWS.regulations,  'tag-reg', 'Policy');
+renderSection('hrCards',  'hrCount',  NEWS.hr_ai,        'tag-hr',  'HR & AI');
+
+// Ask Claude to generate the executive takeaway asynchronously
+(async () => {
+  const bar = document.getElementById('takeawayBar');
+  const allTitles = [
+    ...NEWS.ai_llm, ...NEWS.market, ...NEWS.regulations, ...NEWS.hr_ai
+  ].map(i => i.title).join('; ');
+
+  try {
+    const result = await window.cowork.askClaude(
+      `Write a 2-3 sentence executive summary for XAION DATA (an AI and data analytics company) based on these industry headlines from the week of ${NEWS.weekOf}: ${allTitles}. Be direct and focus on what matters for the business.`,
+      []
+    );
+    const text = (result && typeof result === 'object' && result.text)
+      ? result.text
+      : (typeof result === 'string' ? result : JSON.stringify(result));
+    bar.classList.remove('loading-text');
+    bar.innerHTML = '<strong>This week\'s key takeaway:</strong> ' + text;
+  } catch(e) {
+    bar.classList.remove('loading-text');
+    bar.innerHTML = '<strong>This week\'s key takeaway:</strong> AI investment activity hit a new peak with Anthropic closing a $30B round. Architecture-level LLM shifts (test-time compute, subquadratic models) are reshaping the competitive landscape. HR and policy teams are racing to keep governance pace with rapid agentic AI adoption.';
+  }
+
+  setStatus('Last updated: week of ' + NEWS.weekOf, false);
+})();
+</script>
+</body>
+</html>
