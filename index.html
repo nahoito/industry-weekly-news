@@ -133,49 +133,39 @@
 <div class="status-bar">
   <div class="status-info">
     <div class="dot loading" id="statusDot"></div>
-    <span id="statusText">Generating executive summary...</span>
+    <span id="statusText">エグゼクティブサマリーを生成中...</span>
   </div>
 </div>
 
 <div class="main">
 
-  <div class="takeaway loading-text" id="takeawayBar">Generating executive summary...</div>
+  <div class="takeaway loading-text" id="takeawayBar">エグゼクティブサマリーを生成中...</div>
 
-  <!-- AI & LLM Trends -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-icon icon-ai">🤖</div>
-      <span class="section-title">AI &amp; LLM Trends</span>
-      <span class="section-count" id="aiCount"></span>
-    </div>
-    <div class="cards" id="aiCards"></div>
-  </div>
-
-  <!-- Competitor & Market Moves -->
+  <!-- 競合・市場動向 / AI Ready -->
   <div class="section">
     <div class="section-header">
       <div class="section-icon icon-mkt">📈</div>
-      <span class="section-title">Competitor &amp; Market Moves</span>
+      <span class="section-title">競合・市場動向 / AI Ready</span>
       <span class="section-count" id="mktCount"></span>
     </div>
     <div class="cards" id="mktCards"></div>
   </div>
 
-  <!-- Regulations & Policy -->
+  <!-- 規制・政策 -->
   <div class="section">
     <div class="section-header">
       <div class="section-icon icon-reg">⚖️</div>
-      <span class="section-title">Regulations &amp; Policy</span>
+      <span class="section-title">規制・政策</span>
       <span class="section-count" id="regCount"></span>
     </div>
     <div class="cards" id="regCards"></div>
   </div>
 
-  <!-- HR & AI -->
+  <!-- HR・AI -->
   <div class="section">
     <div class="section-header">
       <div class="section-icon icon-hr">👥</div>
-      <span class="section-title">HR &amp; AI</span>
+      <span class="section-title">HR・AI</span>
       <span class="section-count" id="hrCount"></span>
     </div>
     <div class="cards" id="hrCards"></div>
@@ -184,59 +174,39 @@
 </div>
 
 <script>
-// ── News data (updated week of May 27, 2026) ──────────────────────────────────
+// ── ニュースデータ（2026年5月27日週 更新）────────────────────────────────────
 const NEWS = {
-  weekOf: "May 27, 2026",
-  ai_llm: [
-    {
-      title: "Gemini 3.5 Flash Now Generally Available at 4x Speed",
-      summary: "Google made Gemini 3.5 Flash generally available, offering frontier-level intelligence at four times the speed of comparable models. Priced at $1.50/$9 per million tokens with a 1M context window, it represents a major push on price-performance for enterprise deployments.",
-      source: "llm-stats.com",
-      url: "https://llm-stats.com/ai-news"
-    },
-    {
-      title: "Inception's Mercury 2 Hits 1,000+ Tokens Per Second via Diffusion",
-      summary: "Inception released Mercury 2, a reasoning language model built on a diffusion architecture that generates tokens in parallel rather than sequentially. The result is inference speeds exceeding 1,000 tokens per second, far above autoregressive alternatives.",
-      source: "AI Flash Report",
-      url: "https://aiflashreport.com/model-releases.html"
-    },
-    {
-      title: "Cloudflare Builds Global LLM Infrastructure with Split Processing",
-      summary: "Cloudflare announced new infrastructure optimised for running large language models across its global network, separating model input processing and output generation onto different purpose-built systems. The architecture is designed to reduce latency for real-time AI applications at scale.",
-      source: "InfoQ",
-      url: "https://www.infoq.com/news/2026/05/cloudflare-llm-infrastructure/"
-    },
-    {
-      title: "Together AI Releases OSCAR: INT2 Quantization for Long-Context Serving",
-      summary: "Together AI open-sourced OSCAR (Offline Spectral Covariance-Aware Rotation), an INT2 KV cache quantization method that dramatically reduces memory requirements for long-context LLM serving. The technique makes 100K+ token context windows practical on standard hardware.",
-      source: "Price Per Token",
-      url: "https://pricepertoken.com/news/model-releases"
-    }
-  ],
+  weekOf: "2026年5月27日",
   market: [
     {
-      title: "Q1 2026 VC Funding Hits $300B Record — AI Accounts for 80%",
-      summary: "Q1 2026 shattered global venture funding records with $300 billion raised, of which AI startups captured $242 billion — 80% of all global venture activity. Four of the five largest VC rounds ever recorded were closed in Q1, signalling peak capital concentration in AI.",
-      source: "Crunchbase News",
-      url: "https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/"
+      title: "【競合】AI Brain Partners、2026年を「AIエージェント実用化元年」と位置づけ自走化支援を拡充",
+      summary: "aibrainpartners.jpは2026年をAIエージェントが実際の業務で使えるレベルに達した年と定義し、企業が「AIと共に自走できる組織」になるための伴走支援サービスを強化している。AI人材育成から社内ガイドライン策定まで一貫したAI Ready化支援が競合軸となっている。",
+      source: "AI Brain Partners",
+      url: "https://aibrainpartners.jp/"
     },
     {
-      title: "Databricks Reaches $134B Valuation with $5.4B ARR",
-      summary: "Databricks, the data intelligence platform powering enterprise AI and ML workloads, crossed $5.4 billion in ARR with over 20,000 customers, pushing its valuation to $134 billion. The milestone cements it as the dominant infrastructure layer for enterprise data and AI.",
-      source: "AI Funding Tracker",
-      url: "https://aifundingtracker.com/top-50-ai-startups/"
+      title: "【競合】PwCコンサルティングが「Future Ready Workflow Design」を提供開始、AI活用型業務変革支援に参入",
+      summary: "PwCコンサルティングは業務効率化診断AIを活用したAIトランスフォーメーション支援サービス「Future Ready Workflow Design」の提供を開始した。大手コンサル勢がAI Ready化支援市場に本格参入したことで、同セグメントの競争が激化している。",
+      source: "PwC Japan",
+      url: "https://www.pwc.com/jp/ja/press-room/2026/future-ready-workflow-design.html"
     },
     {
-      title: "Bluefish Raises $43M to Manage Brand Presence Across AI Platforms",
-      summary: "Bluefish raised a $43M Series B to help Fortune 500 brands manage and optimise how they appear across AI platforms including ChatGPT, Claude, and Perplexity. The round reflects growing enterprise demand for AI search reputation management as LLMs replace traditional search.",
-      source: "Crescendo AI",
-      url: "https://www.crescendo.ai/news/latest-vc-investment-deals-in-ai-startups"
+      title: "日本政府がAI Ready化を成長戦略の優先施策に明記、2026年夏ロードマップに盛り込みへ",
+      summary: "経済産業省・NEDOは「データのAI Ready化（精緻化）」をAIモデル開発を支えるデータ基盤整備の重点措置として位置づけた。2026年夏に策定予定の成長戦略ロードマップ草案にも明記され、国策レベルでのAI Ready化支援が本格化する。",
+      source: "ZEAL DATA TIMES",
+      url: "https://www.zdh.co.jp/bi-online/ai-ready-data/"
     },
     {
-      title: "AI Infrastructure Stack Funded Component-by-Component",
-      summary: "Investors are backing the full AI infrastructure stack in granular fashion, with discrete funding rounds for optical switching, quantum acceleration, and specialised memory startups. The pattern suggests the industry is building out a purpose-built physical layer beneath the software AI boom.",
-      source: "Qubit Capital",
-      url: "https://qubit.capital/blog/ai-startup-fundraising-trends"
+      title: "【競合】DeNA、AI子会社「DeNA AI Link」を設立しAIコンサル・ソリューション提供を本格化",
+      summary: "DeNAは「AIオールイン」戦略のもと、AIコンサルティングとソリューション提供を行う子会社「DeNA AI Link」を設立。全社員のAI活用による生産性向上（工数半減・生産性2倍）と既存事業強化を両輪で推進しており、dena.aiポータルでは100件超のAI活用事例を公開している。",
+      source: "DeNA Engineering Blog",
+      url: "https://dena.ai/"
+    },
+    {
+      title: "日本の生成AI市場、2026年に9,430億円規模、2034年には5兆7,890億円超へ",
+      summary: "調査会社Fortune Business Insightsによると日本の生成AI市場規模は2026年に約94.3億ドル（約9,430億円）に達し、2034年には578.9億ドルへ急成長する見通し。AI Ready化支援市場はこの成長を取り込む主要セグメントの一つとして注目される。",
+      source: "Fortune Business Insights",
+      url: "https://www.fortunebusinessinsights.com/japan-generative-ai-market-115265"
     }
   ],
   regulations: [
@@ -262,25 +232,25 @@ const NEWS = {
   hr_ai: [
     {
       title: "92% of CHROs Expect Deeper AI Integration in Workforce This Year",
-      summary: "A new survey finds 92% of Chief Human Resources Officers anticipate further AI integration across their workforce in 2026, with 87% forecasting greater adoption within HR processes specifically. The data reflects a shift from AI as an experiment to AI as a core operational dependency.",
+      summary: "A new survey finds 92% of CHROs anticipate further AI integration across their workforce in 2026, with 87% forecasting greater adoption within HR processes. The data reflects a shift from AI as an experiment to a core operational dependency.",
       source: "HR Dive",
       url: "https://www.hrdive.com/news/hr-2026-trends/808926/"
     },
     {
       title: "Agentic AI Adoption in HR Projected to Grow 327% by 2027",
-      summary: "CHROs are projecting a 327% increase in AI agent adoption within HR by 2027, with current adoption already at 48% among large enterprises. More than half of talent leaders say they are actively planning to add autonomous AI agents as team members this year.",
+      summary: "CHROs are projecting a 327% increase in AI agent adoption within HR by 2027, with current adoption already at 48% among large enterprises. More than half of talent leaders plan to add autonomous AI agents as team members this year.",
       source: "ADP Spark Blog",
       url: "https://www.adp.com/spark/articles/2025/12/key-hr-technology-trends-for-2026-and-how-to-plan.aspx"
     },
     {
       title: "Employers Hiring Aggressively — But Only for AI-Adjacent Roles",
-      summary: "Employers report aggressive hiring plans for 2026, but demand is concentrated in AI engineering, data, and automation roles. Traditional back-office and administrative positions face continued contraction as companies redeploy headcount toward AI-native functions.",
+      summary: "Employers report aggressive hiring plans for 2026, but demand is concentrated in AI engineering, data, and automation roles. Traditional back-office positions face continued contraction as companies redeploy headcount toward AI-native functions.",
       source: "HR Dive",
       url: "https://www.hrdive.com/news/companies-hiring-and-firing-2026/809286/"
     },
     {
       title: "AI Shifts Rather Than Eliminates HR Jobs, Study Finds",
-      summary: "New research finds AI's organisational impact is 5.7x more likely to shift job responsibilities and 3x more likely to create new roles than to eliminate positions outright. While 30-40% of HR tasks can be automated, the net effect is role transformation rather than displacement.",
+      summary: "New research finds AI is 5.7x more likely to shift job responsibilities and 3x more likely to create new roles than to eliminate positions outright. While 30-40% of HR tasks can be automated, the net effect is role transformation rather than displacement.",
       source: "Eightfold AI",
       url: "https://eightfold.ai/blog/predictions-hr-tech-2026/"
     }
@@ -312,37 +282,36 @@ function setStatus(msg, loading) {
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
-document.getElementById('weekDate').textContent = 'Week of ' + NEWS.weekOf;
+document.getElementById('weekDate').textContent = NEWS.weekOf + ' 週';
 
 // Render all sections immediately from pre-loaded data
-renderSection('aiCards',  'aiCount',  NEWS.ai_llm,      'tag-ai',  'AI & LLM');
-renderSection('mktCards', 'mktCount', NEWS.market,       'tag-mkt', 'Market');
-renderSection('regCards', 'regCount', NEWS.regulations,  'tag-reg', 'Policy');
-renderSection('hrCards',  'hrCount',  NEWS.hr_ai,        'tag-hr',  'HR & AI');
+renderSection('mktCards', 'mktCount', NEWS.market,       'tag-mkt', '競合・市場');
+renderSection('regCards', 'regCount', NEWS.regulations,  'tag-reg', '規制・政策');
+renderSection('hrCards',  'hrCount',  NEWS.hr_ai,        'tag-hr',  'HR・AI');
 
 // Ask Claude to generate the executive takeaway asynchronously
 (async () => {
   const bar = document.getElementById('takeawayBar');
   const allTitles = [
-    ...NEWS.ai_llm, ...NEWS.market, ...NEWS.regulations, ...NEWS.hr_ai
+    ...NEWS.market, ...NEWS.regulations, ...NEWS.hr_ai
   ].map(i => i.title).join('; ');
 
   try {
     const result = await window.cowork.askClaude(
-      `Write a 2-3 sentence executive summary for XAION DATA (an AI and data analytics company) based on these industry headlines from the week of ${NEWS.weekOf}: ${allTitles}. Be direct and focus on what matters for the business.`,
+      `あなたはAI・データアナリティクス企業のインテリジェンスアナリストです。${NEWS.weekOf}週の以下の業界ヘッドラインをもとに、2〜3文の日本語エグゼクティブサマリーを作成してください。AI Ready競合動向を特に重視し、ビジネスへの示唆を簡潔に述べてください: ${allTitles}`,
       []
     );
     const text = (result && typeof result === 'object' && result.text)
       ? result.text
       : (typeof result === 'string' ? result : JSON.stringify(result));
     bar.classList.remove('loading-text');
-    bar.innerHTML = '<strong>This week\'s key takeaway:</strong> ' + text;
+    bar.innerHTML = '<strong>今週のポイント：</strong> ' + text;
   } catch(e) {
     bar.classList.remove('loading-text');
-    bar.innerHTML = '<strong>This week\'s key takeaway:</strong> AI investment activity hit a new peak with Anthropic closing a $30B round. Architecture-level LLM shifts (test-time compute, subquadratic models) are reshaping the competitive landscape. HR and policy teams are racing to keep governance pace with rapid agentic AI adoption.';
+    bar.innerHTML = '<strong>今週のポイント：</strong> AI Brain PartnersやPwCなど大手がAI Ready化支援市場へ本格参入し、競争が激化。政府もAI Ready化を成長戦略の優先施策に位置づけ、国内市場の拡大が加速する見通し。LLM推論コストの急落と規制強化が同時進行しており、データ基盤整備が企業の急務となっている。';
   }
 
-  setStatus('Last updated: week of ' + NEWS.weekOf, false);
+  setStatus(NEWS.weekOf + ' 更新', false);
 })();
 </script>
 </body>
